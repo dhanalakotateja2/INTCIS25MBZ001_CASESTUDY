@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Menu Item</title>
+    <link rel="stylesheet" href="nav-bar.css" />
+	<link rel="stylesheet" href="table.css" />
+	<link rel="stylesheet" href="edit-menu-item.css" />
+	
+  </head>
+  <body>
+      <header>
+        <nav>
+			<div id="heading-logo">
+				<a id="heading" href="index.html">truYum</a>
+				<img src="truyum-logo.png" id="logo" hieght="25" width="55">
+			</div>
+			<div>
+                <a href="cart.html"><p class="menu-heading">Cart</p></a>
+                <a href="menu-item-list-customer.html"><p class="menu-heading">Menu</p></a>
+            </div>
+		</nav>
+      </header>
+	  <div id="edit-menu-item-box">
+        <h3>Edit Menu Item</h3>
+        <form onsubmit="editMenuItem()" id="edit-menu-form" action="edit-menu-item-status.html">
+            <div class="edit-menu-item">
+                <label for="title">Name</label>
+                <input type="text" id="title" name="title" required>
+            </div>   
+            <div id="edit-menu-second-row">
+                <div class="edit-menu-item">
+                    <label for="price">Price</label>
+                    <input type="number" id="price" name="price" min="1" required>
+                </div>
+                <div class="edit-menu-item">
+                    <label for="inStock">Active</label>
+                    <div>
+                        <input type="radio" name="inStock" id="inStockYes">
+                        <label for="inStockYes">Yes</label>
+                        <input type="radio" name="inStock" id="inStockNo">
+                        <label for="inStockNo">No</label>
+                    </div>
+                </div>
+                <div class="edit-menu-item">
+                    <label for="dateOfLaunch">Date of Lauch</label>
+                    <input type="date" name="dateOfLaunch" id="dateOfLaunch" required>
+                </div>
+                <div class="edit-menu-item">
+                    <label for="category">Category</label>
+                    <select name="category" id="category">
+                        <option value="Starters">Starters</option>
+                        <option value="Main Course">Main Course</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Drinks">Drinks</option>
+                    </select>
+                </div>
+            </div>       
+            <div>
+                <input type="checkbox" name="freeDelivery" id="freeDelivery">
+                <label for="freeDelivery">Free Delivery</label>
+            </div> 
+            <div>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+	  
+    <footer class=foot>
+      <p>Copyright © 2019</p>
+    </footer>
+    <script src="edit-menu-item.js"></script>
+  </body>
+</html>

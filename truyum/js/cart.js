@@ -1,12 +1,15 @@
 function createCart() {
     var tableBody = document.querySelector("#table-items-body");
-    var table = document.querySelector("#table-body");
+    tableBody.innerHTML = "";
     var total = 0;
 
-    var cart = JSON.parse(sessionStorage.cart);
+    if (!sessionStorage.getItem("cart") || sessionStorage.getItem("cart") === "[]") {
+        window.location.href = "cart-empty.html";
+        return;
+    }
+    var cart = JSON.parse(sessionStorage.getItem("cart"));
 
     for (var i = 0; i < cart.length; i++) {
-
         var row = document.createElement("tr");
 
         var name = document.createElement("td");
@@ -23,6 +26,7 @@ function createCart() {
         del.href = "cart-notification.html";
         del.innerHTML = "Delete";
         del.classList.add("delete");
+        del.dataset.index = i; 
 
         row.appendChild(name);
         row.appendChild(freeDelivery);
@@ -32,22 +36,34 @@ function createCart() {
         tableBody.appendChild(row);
     }
 
-    var totalPriceDiv = document.createElement("div");
-    totalPriceDiv.id = "totalPrice";
-    totalPriceDiv.innerHTML = "Total Rs. " + total;
-    table.appendChild(totalPriceDiv);
+    var totalPriceDiv = document.getElementById("totalPrice");
+    if (!totalPriceDiv) {
+        totalPriceDiv = document.createElement("div");
+        totalPriceDiv.id = "totalPrice";
+        document.querySelector("#table-body").appendChild(totalPriceDiv);
+    }
+    totalPriceDiv.innerHTML = "Total Rs. " + total;    
+    addDeleteEventListeners();
+}
+
+function addDeleteEventListeners() {
+    document.querySelectorAll(".delete").forEach(function(element) {
+        element.addEventListener("click", function(event) {
+            event.preventDefault(); 
+
+            var cart = JSON.parse(sessionStorage.getItem("cart"));
+            var index = parseInt(event.target.dataset.index);
+
+            cart.splice(index, 1);
+            sessionStorage.setItem("cart", JSON.stringify(cart));
+
+            if (cart.length === 0) {
+                window.location.href = "cart-empty.html";
+            } else {
+                window.location.href = "cart-notification.html"; 
+            }
+        });
+    });
 }
 
 createCart();
-
-document.querySelectorAll(".delete").forEach(function(element, index) {
-    element.addEventListener("click", function() {
-
-        if (sessionStorage.getItem("cart") === null) { return; }
-
-        cart = JSON.parse(sessionStorage.cart);
-        cart.splice(index, 1);
-
-        sessionStorage.setItem("cart", JSON.stringify(cart));
-    });
-});
